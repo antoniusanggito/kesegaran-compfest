@@ -1,0 +1,10 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 2px black sold;
+}
+  
+.navlist a {
+    padding: 10px;
+}

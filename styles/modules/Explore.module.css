@@ -1,0 +1,14 @@
+.explore {
+    text-align: center;
+    margin: 0 auto;
+}
+  
+.form {
+    margin: 30px;
+}
+
+.form input {
+    width: 400px;
+    height: 35px;
+    border-radius: 10px;
+}

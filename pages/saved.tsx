@@ -1,21 +1,18 @@
 import Head from "next/head"
 import tw from "twin.macro"
-import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
-import Explore from "../components/Explore"
+import Navbar from "../components/Navbar"
 
-export default function Home() {
+export default function Saved() {
   return (
-    <div className="container">
+    <div>
       <Head>
-        <title>Kesegaran COMPFEST</title>
+        <title>Saved Memes - Kesegaran COMPFEST</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        {/* <Memes /> */}
         <Navbar />
-        <Explore />
         <Footer />
       </main>
     </div>
