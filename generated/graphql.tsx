@@ -516,7 +516,7 @@ export type MemesQuery = (
 
 export const MemesDocument = gql`
     query Memes {
-  memes {
+  memes(limit: 10) {
     title
     image_url
     description

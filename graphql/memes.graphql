@@ -1,5 +1,5 @@
-query Memes {
-  memes {
+query Memes($limit: Int!) {
+  memes(limit: $limit) {
     title
     image_url
     description

@@ -2,6 +2,7 @@ import Head from "next/head"
 import tw from "twin.macro"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
+import YourSaved from "../components/YourSaved"
 
 export default function Saved() {
   return (
@@ -12,7 +13,8 @@ export default function Saved() {
       </Head>
 
       <main>
-        <Navbar />
+        <Navbar page="saved"/>
+        <YourSaved />
         <Footer />
       </main>
     </div>
