@@ -12,7 +12,7 @@ const MasonryLayout = (props) => {
     for (let i = 0; i < props.children.length; i++) {
         const columnIndex = i % props.columns;
         columnWrapper[`column${columnIndex}`].push(
-          <div style={{ marginBottom: `${props.gap}px`, backgroundColor: 'yellow' }}>
+          <div style={{ marginBottom: `${props.gap}px` }}>
             {props.children[i]}
           </div>
         );

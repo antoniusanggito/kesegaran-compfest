@@ -1,5 +1,5 @@
-query Memes($limit: Int!) {
-  memes(limit: $limit) {
+query Memes($keyword: String) {
+  memes(where: {title: {_ilike: $keyword}, _or: {description: {_ilike: $keyword}}}) {
     title
     image_url
     description

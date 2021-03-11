@@ -10,7 +10,7 @@ export default function Home() {
       <Head>
         <title>Kesegaran COMPFEST</title>
         <link rel="icon" href="/favicon.ico" />
-        <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+        {/* <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script> */}
       </Head>
 
       <main>
@@ -23,7 +23,6 @@ export default function Home() {
         {`
           .container {
             height: 100%;
-            text-align: center;
           }
         `}
       </style>

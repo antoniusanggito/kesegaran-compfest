@@ -502,7 +502,9 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
-export type MemesQueryVariables = Exact<{ [key: string]: never; }>;
+export type MemesQueryVariables = Exact<{
+  keyword?: Maybe<Scalars['String']>;
+}>;
 
 
 export type MemesQuery = (
@@ -515,8 +517,10 @@ export type MemesQuery = (
 
 
 export const MemesDocument = gql`
-    query Memes {
-  memes(limit: 10) {
+    query Memes($keyword: String) {
+  memes(
+    where: {title: {_ilike: $keyword}, _or: {description: {_ilike: $keyword}}}
+  ) {
     title
     image_url
     description
@@ -536,6 +540,7 @@ export const MemesDocument = gql`
  * @example
  * const { data, loading, error } = useMemesQuery({
  *   variables: {
+ *      keyword: // value for 'keyword'
  *   },
  * });
  */

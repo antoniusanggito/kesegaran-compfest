@@ -4,14 +4,18 @@ import React from 'react'
 import { useMemesQuery } from "../generated/graphql"
 
 const Explore = () => {
-    const { data, loading: memesLoading } = useMemesQuery()
+    // const { data, loading: memesLoading } = useMemesQuery({
+    //   variables: {
+    //       keyword: "%st%",
+    //     }
+    // })
     // const title = document.getElementById('search').value
 
     return (
         <div className="explore">
           <div className="explore-box">
             <h1>Explore.</h1>
-            <MyComponent query={loading} meme={data}/>
+            <MyComponent />
             {/* <form className="explore-form" method="get">
               <input type="text" id="search" placeholder='search for memes...' onKeyUp={(e) => {
                 e.preventDefault()
@@ -30,13 +34,12 @@ const Explore = () => {
                 })
               }
             </MasonryLayout> */}
-            {memesLoading ? "loading.." : data ?.memes.map(meme => (
+            {/* {memesLoading ? "loading.." : data ?.memes.map(meme => (
               <div>
                 <h2>{meme.title}</h2>
                 <img src={meme.image_url} className="img-meme" />
               </div>
-              
-            ))}
+            ))} */}
             <style jsx>
               {`
                 .explore {
@@ -60,16 +63,7 @@ const Explore = () => {
                   position: relative;
                   top: 25%;
                   margin-bottom: 3rem;
-                }
-
-                .explore-form {
-                  margin: 2rem;
-                }
-
-                .explore-form input {
-                  border: 1px solid #cccccc;
-                  width: 400px;
-                  height: 35px;
+                  text-align: center;
                 }
 
                 img-meme {
