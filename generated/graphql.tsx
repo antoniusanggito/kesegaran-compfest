@@ -519,7 +519,7 @@ export type MemesQuery = (
 export const MemesDocument = gql`
     query Memes($keyword: String) {
   memes(
-    where: {title: {_ilike: $keyword}, _or: {description: {_ilike: $keyword}}}
+    where: {_or: [{title: {_ilike: $keyword}}, {description: {_ilike: $keyword}}]}
   ) {
     title
     image_url

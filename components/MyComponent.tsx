@@ -1,4 +1,5 @@
 import MasonryLayout from "./MasonryLayout"
+import SaveButton from "./SaveButton"
 import { useState } from 'react'
 import { useMemesQuery } from "../generated/graphql"
 
@@ -21,14 +22,14 @@ const MyComponent = () => {
       <MasonryLayout columns={3} gap={20}>
         {
           memesLoading ? "loading.." : data ?.memes.map(meme => {
-            // const height = 200 + Math.ceil(Math.random() * 300);
-        
             return (
-              <div className="meme-card">
+              <div className="meme-card" key={meme.title}>
                 <img src={meme.image_url} className="meme-img" />
-                <h2>{meme.title}</h2>
-              </div>    
-              // <div style={{height: `${height}px`}} />
+                <div className="meme-desc">
+                  <h2>{meme.title}</h2>
+                  <SaveButton />
+                </div>
+              </div>
             )
           })
         }
@@ -38,6 +39,7 @@ const MyComponent = () => {
           .meme-card {
             font-weight: bold;
             text-align: left;
+            border-radius: 10px;
           }
 
           .meme-card h2 {
@@ -54,9 +56,15 @@ const MyComponent = () => {
             height: 35px;
           }
 
-          meme-img {
-            width: 200px;
-            height: auto;
+          .meme-img {
+            min-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+          }
+
+          .meme-desc {
+            display: flex;
+            justify-content: space-between;
           }
         `}
       </style>
