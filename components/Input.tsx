@@ -3,14 +3,32 @@ import SaveButton from "./SaveButton"
 import { useState } from 'react'
 import { useMemesQuery } from "../generated/graphql"
 
-const MyComponent = () => {
+const Input = () => {
   const [input, setInput] = useState('')
   const modInput = "%" + input + "%"
-  const { data, loading: memesLoading } = useMemesQuery({
+  const { data, loading: memesLoading } = useMemesQuery(
+    {
     variables: {
         keyword: modInput,
       }
-  })
+    }
+  )
+
+  const recieved = memesLoading ? "loading" : data
+  console.log(recieved)
+
+  const memeList = []
+  const memeSaved = []
+  if (recieved !== "loading") {
+    for (let id in data.users[0].user_memes) {
+      memeSaved.push(data.users[0].user_memes[id].meme_id)
+    }
+    for (let id in data.memes) {
+      memeList.push(data.memes[id])
+    }
+    // console.log(memeList)
+    console.log(memeSaved)
+  }
 
   return (
     <div>
@@ -19,15 +37,15 @@ const MyComponent = () => {
             setInput(e.target.value)
         }}/>
       </form>
-      <MasonryLayout columns={3} gap={20}>
+      <MasonryLayout >
         {
-          memesLoading ? "loading.." : data ?.memes.map(meme => {
+          memeList.map(meme => {
             return (
-              <div className="meme-card" key={meme.title}>
+              <div className="meme-card" key={meme.id}>
                 <img src={meme.image_url} className="meme-img" />
                 <div className="meme-desc">
-                  <h2>{meme.title}</h2>
-                  <SaveButton />
+                  <h2>{meme.id} {meme.title}</h2>
+                  <SaveButton currentId={meme.id} initState={memeSaved.includes(meme.id)}/>
                 </div>
               </div>
             )
@@ -54,6 +72,7 @@ const MyComponent = () => {
             border: 1px solid #cccccc;
             width: 400px;
             height: 35px;
+            padding: 10px;
           }
 
           .meme-img {
@@ -72,4 +91,4 @@ const MyComponent = () => {
   );
 }
 
-export default MyComponent
+export default Input

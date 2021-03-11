@@ -1,5 +1,4 @@
 import Link from 'next/link'
-// import NavbarStyles from "../styles/modules/Navbar.module.css"
 
 const Navbar = ({ page }) => {
     return (
@@ -7,8 +6,12 @@ const Navbar = ({ page }) => {
             <div className="navbar-item">
                 <Link href="/">KESEGARAN.COMPFEST</Link>
                 <div className="navbar-link">
-                    <a href="/" className="link-explore">Explore</a>
-                    <a href="/saved" className="link-saved">Saved</a>
+                    <Link href="/">
+                        <a className="link-explore">Explore</a>
+                    </Link>
+                    <Link href="/saved">
+                        <a className="link-saved">Saved</a>
+                    </Link>
                 </div>
             </div>
             <style jsx>
@@ -28,7 +31,7 @@ const Navbar = ({ page }) => {
                         opacity: 0.8;
                     }
 
-                    .navbar-link a {
+                    .navbar-link a{
                         padding: 1rem;
                         transition: .2s;
                     }
@@ -39,11 +42,11 @@ const Navbar = ({ page }) => {
                     }
 
                     .link-explore {
-                        // color: {page === "explore" ? blue : grey};
+                        color: ${page === "explore" ? "blue" : "black"};
                     }
 
                     .link-saved {
-                        // color: {page === "saved" ? blue : grey};
+                        color: ${page === "saved" ? "blue" : "black"};
                     }
                 `}
             </style>

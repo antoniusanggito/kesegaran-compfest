@@ -5,6 +5,8 @@ const MasonryLayout = (props) => {
     const columnWrapper = {};
     const result = [];
 
+    // console.log(props)
+
     for (let i = 0; i < 3; i++) {
         columnWrapper[`column${i}`] = [];
     }
@@ -38,8 +40,6 @@ const MasonryLayout = (props) => {
 }
 
 MasonryLayout.propTypes = {
-    columns: PropTypes.number.isRequired,
-    gap: PropTypes.number.isRequired,
     children: PropTypes.arrayOf(PropTypes.element),
   };
 

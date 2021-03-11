@@ -1,5 +1,5 @@
 import MasonryLayout from "./MasonryLayout"
-import MyComponent from "./MyComponent"
+import Input from "./Input"
 import React from 'react'
 import { useMemesQuery } from "../generated/graphql"
 
@@ -15,13 +15,7 @@ const Explore = () => {
         <div className="explore">
           <div className="explore-box">
             <h1>Explore.</h1>
-            <MyComponent />
-            {/* <form className="explore-form" method="get">
-              <input type="text" id="search" placeholder='search for memes...' onKeyUp={(e) => {
-                e.preventDefault()
-                console.log("Searching")
-              }} />
-            </form> */}
+            <Input />
           </div>
             {/* <MasonryLayout columns={3} gap={15}>
               {
@@ -50,11 +44,11 @@ const Explore = () => {
                   // transform: translate(-50%, -50%);
                   margin: 0 6rem;
                   padding: 3rem 0;
-                  // height: 75vh;
+                  // min-height: 75vh;
                 }
 
                 .explore h1 {
-                  font-size: 40px;
+                  font-size: 36px;
                   font-weight: bold;
                 }
 
