@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import MasonryLayout from './MasonryLayout'
-import SaveButton from './SaveButton'
+import MemeCard from './MemeCard'
 import { useState, useEffect } from 'react'
 import { useSavedQuery } from "../generated/graphql"
 
@@ -46,7 +46,7 @@ const SavedMemes = (): JSX.Element => {
             {
               memeSaved.map(meme => { 
                 return (
-                  <SaveButton key={meme.id} meme={meme} initState={true} page="saved" removeChild={removeChild}/>
+                  <MemeCard key={meme.id} meme={meme} initState={true} page="saved" removeChild={removeChild}/>
                 )
               })
             }
@@ -68,7 +68,7 @@ const SavedMemes = (): JSX.Element => {
                 {
                   memeSaved.map(meme => { 
                     return (
-                      <SaveButton key={meme.id} meme={meme} initState={true} page="saved" removeChild={removeChild}/>
+                      <MemeCard key={meme.id} meme={meme} initState={true} page="saved" removeChild={removeChild}/>
                     )
                   })
                 }

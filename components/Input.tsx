@@ -1,5 +1,5 @@
 import MasonryLayout from "./MasonryLayout"
-import SaveButton from "./SaveButton"
+import MemeCard from "./MemeCard"
 import { useState } from 'react'
 import { useMemesQuery } from "../generated/graphql"
 
@@ -44,7 +44,7 @@ const Input = () => {
           {
             memeList.map(meme => {
               return (
-                <SaveButton meme={meme} initState={memeSaved.includes(meme.id)} page="explore" removeChild={()=>{}} />
+                <MemeCard meme={meme} initState={memeSaved.includes(meme.id)} page="explore" removeChild={()=>{}} />
               )
             })
           }

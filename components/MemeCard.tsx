@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useInsertMutation, useDeleteMutation } from '../generated/graphql';
 
-const SaveButton = ({ meme, initState, page, removeChild }) => {
+const MemeCard = ({ meme, initState, page, removeChild }) => {
     const [insertMutation, { data: dataIn, loading: loadingIn, error: errorIn }] = useInsertMutation()
     const [deleteMutation, { data: dataDel, loading: loadingDel, error: errorDel }] = useDeleteMutation()
     const [state, setState] = useState(initState)
@@ -21,7 +21,7 @@ const SaveButton = ({ meme, initState, page, removeChild }) => {
                     id: meme.id
                 },
             })
-            console.log("deleting")
+            // console.log("deleting")
             if (page === "saved") {
                 // console.log("on saved")
                 removeChild(meme)
@@ -78,4 +78,4 @@ const SaveButton = ({ meme, initState, page, removeChild }) => {
     )
 }
 
-export default SaveButton
+export default MemeCard
