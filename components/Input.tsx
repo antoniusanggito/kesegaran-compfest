@@ -27,7 +27,7 @@ const Input = () => {
       memeList.push(data.memes[id])
     }
     // console.log(memeList)
-    console.log(memeSaved)
+    // console.log(memeSaved)
   }
 
   return (

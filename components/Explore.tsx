@@ -10,17 +10,6 @@ const Explore = () => {
             <h1>Explore.</h1>
             <Input />
           </div>
-            {/* <MasonryLayout columns={3} gap={15}>
-              {
-                [...Array(12).keys()].map(key => {
-                  const height = 200 + Math.ceil(Math.random() * 300);
-              
-                  return (
-                    <div style={{height: `${height}px`}} />
-                  )
-                })
-              }
-            </MasonryLayout> */}
             <style jsx>
               {`
                 .explore {

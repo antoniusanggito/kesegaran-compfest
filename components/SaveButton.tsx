@@ -7,14 +7,14 @@ const SaveButton = ({ meme, initState, page, removeChild }) => {
     const [state, setState] = useState(initState)
 
     const mutate = () => {
-        console.log(state)
+        // console.log(state)
         if (!state) {
             insertMutation({
                 variables: {
                     id: meme.id
                 },
             })
-            console.log("inserting")
+            // console.log("inserting")
         } else { 
             deleteMutation({
                 variables: {
@@ -23,7 +23,7 @@ const SaveButton = ({ meme, initState, page, removeChild }) => {
             })
             console.log("deleting")
             if (page === "saved") {
-                console.log("on saved")
+                // console.log("on saved")
                 removeChild(meme)
             }
         }

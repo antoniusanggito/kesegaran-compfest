@@ -14,7 +14,7 @@ const Footer = () => {
                     <a href="#">LI</a>
                     <a href="#">L</a>
                 </div>
-                <p>@ 2021 Computer Festival UI</p>
+                <p>@ 2021 Antonius Anggito Arissaputro</p>
             </div>
             <style jsx>
                 {`

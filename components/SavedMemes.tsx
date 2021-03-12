@@ -6,7 +6,7 @@ import { useSavedQuery } from "../generated/graphql"
 
 const SavedMemes = () => {
     const { data, loading, error } = useSavedQuery()
-    const [memes, setMemes] = useState([])
+    const [memeCount, setMemeCount] = useState(1)
 
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
@@ -15,34 +15,30 @@ const SavedMemes = () => {
     //   setMemes([...memes, memeToAdd]);
     // }
 
-    // CONFIGURE USEEFFECT TO SUCCESFULLY SET MEMES THE FIRST TIME
-    let memeSaved = []
-    useEffect(() => {
-      function handle() {
-        for (let id in data.users[0].user_memes) {
-          memeSaved.push(data.users[0].user_memes[id].meme)   
-          setMemes([...memes, data.users[0].user_memes[id].meme]);
-        }
-      }
-    }, [])
+    const memeSaved = []
+    for (let id in data.users[0].user_memes) {
+      memeSaved.push(data.users[0].user_memes[id].meme)
+    }
+
+    // useEffect(() => {
+    //   setMemeCount(5);
+    // }, [])
 
     const removeChild = (memeSelected) => {
-      memeSaved = memeSaved.filter(meme => meme.id !== memeSelected.id)
-      setMemes(memeSaved)
-      console.log(memes)
+      setMemeCount(memeSaved.filter(meme => meme.id !== memeSelected.id).length)
     }
 
     return (
         <div className='saved'>
             <h1>Your saved memes.</h1>
-            {memes.length === 0 ? 
+            {memeCount === 0 ? 
               <div className="box">  
                 <p>You have no saved memes. Explore now!</p>
                 <Link href="/"><button className="btn-explore">Explore</button></Link>
               </div>
               : <MasonryLayout >
                 {
-                  memes.map(meme => { 
+                  memeSaved.map(meme => { 
                     return (
                       <SaveButton key={meme.id} meme={meme} initState={true} page="saved" removeChild={removeChild}/>
                     )
