@@ -50,13 +50,3 @@ mutation Delete($id: Int!) {
     }
   }
 }
-
-# mutation Delete($id: Int!) {
-#   delete_user_memes_by_pk(meme_id: $id, user_id: "343d5987-306a-4815-8dcb-fa2fd0ff523b") {
-#     user {
-#       user_memes {
-#         meme_id
-#       }
-#     }
-#   }
-# }

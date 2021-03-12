@@ -8,13 +8,12 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Kesegaran COMPFEST</title>
+        <title>KESEGARAN.COMPFEST</title>
         <link rel="icon" href="/favicon.ico" />
         {/* <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script> */}
       </Head>
 
       <main>
-        {/* <Fetch keyword={1}/> */}
         <Navbar page="explore"/>
         <Explore />
         <Footer />

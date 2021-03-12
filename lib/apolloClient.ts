@@ -12,7 +12,7 @@ import nookies from "nookies"
 
 const createHttpLink = () => {
   const httpLink = new HttpLink({
-    uri: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/v1/graphql",
+    uri: process.env.NEXT_PUBLIC_API_URL || "/v1/graphql",
     credentials: "include",
     fetch,
   })
@@ -22,7 +22,7 @@ const createHttpLink = () => {
 const createWSLink = () => {
   return new WebSocketLink(
     new SubscriptionClient(
-      process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8080/v1/graphql",
+      process.env.NEXT_PUBLIC_WS_URL || "/v1/graphql",
       {
         lazy: true,
         reconnect: true,

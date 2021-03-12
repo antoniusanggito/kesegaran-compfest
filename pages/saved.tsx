@@ -8,7 +8,7 @@ export default function Saved() {
   return (
     <div className="container">
       <Head>
-        <title>Saved Memes - Kesegaran COMPFEST</title>
+        <title>Saved - KESEGARAN.COMPFEST</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
