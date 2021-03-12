@@ -8,8 +8,12 @@ const SavedMemes = (): JSX.Element => {
     const { data, loading, error } = useSavedQuery()
     const [memeCount, setMemeCount] = useState(1)
 
-    if (loading) return 'Loading...';
-    if (error) return `Error! ${error.message}`;
+    if (loading) return (
+      <p>Loading...</p>
+    )
+    if (error) return (
+      <p>Error! ${error.message}</p>
+    )
 
     // const addMemeHandler = (memetoAdd) => {
     //   setMemes([...memes, memeToAdd]);
