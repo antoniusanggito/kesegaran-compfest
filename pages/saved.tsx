@@ -3,8 +3,21 @@ import tw from "twin.macro"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import SavedMemes from "../components/SavedMemes"
+import { useSavedQuery } from "../generated/graphql"
 
 export default function Saved() {
+  // const { data, loading, error } = useSavedQuery()
+
+  // if (loading) return 'Loading...';
+  // if (error) return `Error! ${error.message}`;
+
+  // const count = data.users[0].user_memes.length
+  
+  // const memeSaved = []
+  // for (let id in data.users[0].user_memes) {
+  //   memeSaved.push(data.users[0].user_memes[id].meme)   
+  // }
+
   return (
     <div className="container">
       <Head>

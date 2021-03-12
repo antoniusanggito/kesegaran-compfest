@@ -6,45 +6,45 @@ import { useSavedQuery } from "../generated/graphql"
 
 const SavedMemes = () => {
     const { data, loading, error } = useSavedQuery()
-    // const [memes, setMemes] = useState([])
+    const [memes, setMemes] = useState([])
 
-    const received = loading ? "loading" : data
-    console.log(received)
+    if (loading) return 'Loading...';
+    if (error) return `Error! ${error.message}`;
 
-    // const addMemeHandler = (memeToAdd) => {
+    // const addMemeHandler = (memetoAdd) => {
     //   setMemes([...memes, memeToAdd]);
     // }
 
+    // CONFIGURE USEEFFECT TO SUCCESFULLY SET MEMES THE FIRST TIME
     let memeSaved = []
-    if (received !== "loading") {
-      for (let id in data.users[0].user_memes) {
-        memeSaved.push(data.users[0].user_memes[id].meme)   
-      }
-    }
-
     useEffect(() => {
-      console.log(memeSaved)
-    }, [memeSaved])
+      function handle() {
+        for (let id in data.users[0].user_memes) {
+          memeSaved.push(data.users[0].user_memes[id].meme)   
+          setMemes([...memes, data.users[0].user_memes[id].meme]);
+        }
+      }
+    }, [])
 
-    const removeChild = (deletedId: number) => {
-      console.log(deletedId)
-      memeSaved = memeSaved.filter(meme => meme.id !== deletedId)
-      console.log(memeSaved)
+    const removeChild = (memeSelected) => {
+      memeSaved = memeSaved.filter(meme => meme.id !== memeSelected.id)
+      setMemes(memeSaved)
+      console.log(memes)
     }
 
     return (
         <div className='saved'>
             <h1>Your saved memes.</h1>
-            {memeSaved.length === 0 ? 
+            {memes.length === 0 ? 
               <div className="box">  
                 <p>You have no saved memes. Explore now!</p>
                 <Link href="/"><button className="btn-explore">Explore</button></Link>
               </div>
               : <MasonryLayout >
                 {
-                  memeSaved.map(meme => { 
+                  memes.map(meme => { 
                     return (
-                      <SaveButton meme={meme} initState={true} page="saved" removeChild={removeChild}/>
+                      <SaveButton key={meme.id} meme={meme} initState={true} page="saved" removeChild={removeChild}/>
                     )
                   })
                 }

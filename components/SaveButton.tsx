@@ -24,7 +24,7 @@ const SaveButton = ({ meme, initState, page, removeChild }) => {
             console.log("deleting")
             if (page === "saved") {
                 console.log("on saved")
-                removeChild(meme.id)
+                removeChild(meme)
             }
         }
         setState(prevState => !prevState)
