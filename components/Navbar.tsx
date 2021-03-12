@@ -31,7 +31,7 @@ const Navbar = ({ page }) => {
                         opacity: 0.8;
                     }
 
-                    .navbar-link a{
+                    .navbar-link a {
                         padding: 1rem;
                         transition: .2s;
                     }
@@ -39,6 +39,7 @@ const Navbar = ({ page }) => {
                     .navbar-link a:hover {
                         opacity: 1;
                         color: blue;
+                        transform: scale(1.1);
                     }
 
                     .link-explore {

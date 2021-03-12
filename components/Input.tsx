@@ -37,21 +37,17 @@ const Input = () => {
             setInput(e.target.value)
         }}/>
       </form>
-      <MasonryLayout >
-        {
-          memeList.map(meme => {
-            return (
-              <div className="meme-card" key={meme.id}>
-                <img src={meme.image_url} className="meme-img" />
-                <div className="meme-desc">
-                  <h2>{meme.id} {meme.title}</h2>
-                  <SaveButton currentId={meme.id} initState={memeSaved.includes(meme.id)}/>
-                </div>
-              </div>
-            )
-          })
-        }
-      </MasonryLayout>
+      { input !== "" &&
+        <MasonryLayout >
+          {
+            memeList.map(meme => {
+              return (
+                <SaveButton meme={meme} initState={memeSaved.includes(meme.id)} page="explore" removeChild={()=>{}} />
+              )
+            })
+          }
+        </MasonryLayout>
+      }
       <style jsx>
         {`
           .meme-card {

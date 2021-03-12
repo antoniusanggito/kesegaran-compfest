@@ -1,37 +1,67 @@
-import { useEffect, useState } from 'react';
-import { useInsertMutation } from '../generated/graphql';
+import { useState } from 'react';
+import { useInsertMutation, useDeleteMutation } from '../generated/graphql';
 
-const SaveButton = ({ currentId, initState }) => {
-    const [insertMutation, { data, loading, error }] = useInsertMutation({
-        variables: {
-            id: currentId
-        }
-    })
-    // const [deleteMutation, { delData, delLoading, delError }] = useDeleteMutation({
-    //     variables: { 
-    //         id: currentId
-    //     }
-    // })
+const SaveButton = ({ meme, initState, page, removeChild }) => {
+    const [insertMutation, { data: dataIn, loading: loadingIn, error: errorIn }] = useInsertMutation()
+    const [deleteMutation, { data: dataDel, loading: loadingDel, error: errorDel }] = useDeleteMutation()
     const [state, setState] = useState(initState)
 
-    useEffect(() => {
+    const mutate = () => {
+        console.log(state)
+        if (!state) {
+            insertMutation({
+                variables: {
+                    id: meme.id
+                },
+            })
+            console.log("inserting")
+        } else { 
+            deleteMutation({
+                variables: {
+                    id: meme.id
+                },
+            })
+            console.log("deleting")
+            if (page === "saved") {
+                console.log("on saved")
+                removeChild(meme.id)
+            }
+        }
         setState(prevState => !prevState)
-        // for (let id in data.insert_user_memes.returning[0].user.user_memes) {
-        //     if (data.insert_user_memes.returning[0].user.user_memes[id].meme_id === currentId) {
-        //         saved = true
-        //     }
-        // }
-    }, [data])
+    }
 
     return (
-        <>
-            <button className="btn-save" onClick={() => {
-                !state ? console.log("saving") : console.log("already saved")
-            }}
-                >{state ? "Saved" : "Save"}
-            </button>
+        <div className="meme-card" key={meme.id}>
+            <img src={meme.image_url} className="meme-img" />
+            <div className="meme-desc">
+                <h2>{meme.id} {meme.title}</h2>
+                <button className="btn-save" onClick={mutate}>
+                    {state ? "Saved" : "Save"}
+                </button>
+            </div>
             <style jsx>
                 {`
+                    .meme-card {
+                        font-weight: bold;
+                        text-align: left;
+                        border-radius: 10px;
+                    }
+        
+                    .meme-card h2 {
+                        padding: 0 0.2rem;
+                    }
+        
+                    .meme-img {
+                        min-width: 100%;
+                        max-height: 100%;
+                        border-radius: 10px;
+                    }
+        
+                    .meme-desc {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
                     .btn-save {
                         font-weight: bold;
                         color: ${state ? "orange" : "black"};
@@ -40,10 +70,11 @@ const SaveButton = ({ currentId, initState }) => {
 
                     .btn-save:hover {
                         color: orange;
+                        transform: scale(1.1)
                     }
                 `}
             </style>
-        </>
+        </div>
     )
 }
 

@@ -4,13 +4,6 @@ import React from 'react'
 import { useMemesQuery } from "../generated/graphql"
 
 const Explore = () => {
-    // const { data, loading: memesLoading } = useMemesQuery({
-    //   variables: {
-    //       keyword: "%st%",
-    //     }
-    // })
-    // const title = document.getElementById('search').value
-
     return (
         <div className="explore">
           <div className="explore-box">
@@ -28,12 +21,6 @@ const Explore = () => {
                 })
               }
             </MasonryLayout> */}
-            {/* {memesLoading ? "loading.." : data ?.memes.map(meme => (
-              <div>
-                <h2>{meme.title}</h2>
-                <img src={meme.image_url} className="img-meme" />
-              </div>
-            ))} */}
             <style jsx>
               {`
                 .explore {
@@ -44,7 +31,7 @@ const Explore = () => {
                   // transform: translate(-50%, -50%);
                   margin: 0 6rem;
                   padding: 3rem 0;
-                  // min-height: 75vh;
+                  min-height: 85vh;
                 }
 
                 .explore h1 {

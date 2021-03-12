@@ -503,7 +503,7 @@ export type Uuid_Comparison_Exp = {
 };
 
 export type MemesQueryVariables = Exact<{
-  keyword?: Maybe<Scalars['String']>;
+  keyword: Scalars['String'];
 }>;
 
 
@@ -511,19 +511,95 @@ export type MemesQuery = (
   { __typename?: 'query_root' }
   & { memes: Array<(
     { __typename?: 'memes' }
-    & Pick<Memes, 'title' | 'image_url' | 'description'>
+    & Pick<Memes, 'id' | 'title' | 'image_url' | 'description'>
+  )>, users: Array<(
+    { __typename?: 'users' }
+    & Pick<Users, 'id' | 'name'>
+    & { user_memes: Array<(
+      { __typename?: 'user_memes' }
+      & Pick<User_Memes, 'meme_id'>
+    )> }
+  )> }
+);
+
+export type SavedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SavedQuery = (
+  { __typename?: 'query_root' }
+  & { users: Array<(
+    { __typename?: 'users' }
+    & { user_memes: Array<(
+      { __typename?: 'user_memes' }
+      & { meme: (
+        { __typename?: 'memes' }
+        & Pick<Memes, 'description' | 'id' | 'image_url' | 'title'>
+      ) }
+    )> }
+  )> }
+);
+
+export type InsertMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type InsertMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_user_memes?: Maybe<(
+    { __typename?: 'user_memes_mutation_response' }
+    & { returning: Array<(
+      { __typename?: 'user_memes' }
+      & { user: (
+        { __typename?: 'users' }
+        & { user_memes: Array<(
+          { __typename?: 'user_memes' }
+          & Pick<User_Memes, 'meme_id'>
+        )> }
+      ) }
+    )> }
+  )> }
+);
+
+export type DeleteMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeleteMutation = (
+  { __typename?: 'mutation_root' }
+  & { delete_user_memes?: Maybe<(
+    { __typename?: 'user_memes_mutation_response' }
+    & { returning: Array<(
+      { __typename?: 'user_memes' }
+      & { user: (
+        { __typename?: 'users' }
+        & { user_memes: Array<(
+          { __typename?: 'user_memes' }
+          & Pick<User_Memes, 'meme_id'>
+        )> }
+      ) }
+    )> }
   )> }
 );
 
 
 export const MemesDocument = gql`
-    query Memes($keyword: String) {
+    query Memes($keyword: String!) {
   memes(
     where: {_or: [{title: {_ilike: $keyword}}, {description: {_ilike: $keyword}}]}
   ) {
+    id
     title
     image_url
     description
+  }
+  users(where: {id: {_eq: "343d5987-306a-4815-8dcb-fa2fd0ff523b"}}) {
+    id
+    name
+    user_memes {
+      meme_id
+    }
   }
 }
     `;
@@ -544,7 +620,7 @@ export const MemesDocument = gql`
  *   },
  * });
  */
-export function useMemesQuery(baseOptions?: Apollo.QueryHookOptions<MemesQuery, MemesQueryVariables>) {
+export function useMemesQuery(baseOptions: Apollo.QueryHookOptions<MemesQuery, MemesQueryVariables>) {
         return Apollo.useQuery<MemesQuery, MemesQueryVariables>(MemesDocument, baseOptions);
       }
 export function useMemesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MemesQuery, MemesQueryVariables>) {
@@ -553,3 +629,123 @@ export function useMemesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Meme
 export type MemesQueryHookResult = ReturnType<typeof useMemesQuery>;
 export type MemesLazyQueryHookResult = ReturnType<typeof useMemesLazyQuery>;
 export type MemesQueryResult = Apollo.QueryResult<MemesQuery, MemesQueryVariables>;
+export const SavedDocument = gql`
+    query Saved {
+  users(where: {id: {_eq: "343d5987-306a-4815-8dcb-fa2fd0ff523b"}}) {
+    user_memes {
+      meme {
+        description
+        id
+        image_url
+        title
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useSavedQuery__
+ *
+ * To run a query within a React component, call `useSavedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSavedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSavedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSavedQuery(baseOptions?: Apollo.QueryHookOptions<SavedQuery, SavedQueryVariables>) {
+        return Apollo.useQuery<SavedQuery, SavedQueryVariables>(SavedDocument, baseOptions);
+      }
+export function useSavedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SavedQuery, SavedQueryVariables>) {
+          return Apollo.useLazyQuery<SavedQuery, SavedQueryVariables>(SavedDocument, baseOptions);
+        }
+export type SavedQueryHookResult = ReturnType<typeof useSavedQuery>;
+export type SavedLazyQueryHookResult = ReturnType<typeof useSavedLazyQuery>;
+export type SavedQueryResult = Apollo.QueryResult<SavedQuery, SavedQueryVariables>;
+export const InsertDocument = gql`
+    mutation Insert($id: Int!) {
+  insert_user_memes(
+    objects: {meme_id: $id, user_id: "343d5987-306a-4815-8dcb-fa2fd0ff523b"}
+    on_conflict: {constraint: user_memes_pkey, update_columns: meme_id}
+  ) {
+    returning {
+      user {
+        user_memes {
+          meme_id
+        }
+      }
+    }
+  }
+}
+    `;
+export type InsertMutationFn = Apollo.MutationFunction<InsertMutation, InsertMutationVariables>;
+
+/**
+ * __useInsertMutation__
+ *
+ * To run a mutation, you first call `useInsertMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertMutation, { data, loading, error }] = useInsertMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useInsertMutation(baseOptions?: Apollo.MutationHookOptions<InsertMutation, InsertMutationVariables>) {
+        return Apollo.useMutation<InsertMutation, InsertMutationVariables>(InsertDocument, baseOptions);
+      }
+export type InsertMutationHookResult = ReturnType<typeof useInsertMutation>;
+export type InsertMutationResult = Apollo.MutationResult<InsertMutation>;
+export type InsertMutationOptions = Apollo.BaseMutationOptions<InsertMutation, InsertMutationVariables>;
+export const DeleteDocument = gql`
+    mutation Delete($id: Int!) {
+  delete_user_memes(
+    where: {meme_id: {_eq: $id}, user: {id: {_eq: "343d5987-306a-4815-8dcb-fa2fd0ff523b"}}}
+  ) {
+    returning {
+      user {
+        user_memes {
+          meme_id
+        }
+      }
+    }
+  }
+}
+    `;
+export type DeleteMutationFn = Apollo.MutationFunction<DeleteMutation, DeleteMutationVariables>;
+
+/**
+ * __useDeleteMutation__
+ *
+ * To run a mutation, you first call `useDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMutation, { data, loading, error }] = useDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMutation, DeleteMutationVariables>) {
+        return Apollo.useMutation<DeleteMutation, DeleteMutationVariables>(DeleteDocument, baseOptions);
+      }
+export type DeleteMutationHookResult = ReturnType<typeof useDeleteMutation>;
+export type DeleteMutationResult = Apollo.MutationResult<DeleteMutation>;
+export type DeleteMutationOptions = Apollo.BaseMutationOptions<DeleteMutation, DeleteMutationVariables>;

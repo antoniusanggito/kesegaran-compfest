@@ -1,45 +1,56 @@
 import Link from 'next/link'
 import MasonryLayout from './MasonryLayout'
 import SaveButton from './SaveButton'
+import { useState, useEffect } from 'react'
 import { useSavedQuery } from "../generated/graphql"
 
 const SavedMemes = () => {
-  const { data, loading, error } = useSavedQuery()
+    const { data, loading, error } = useSavedQuery()
+    // const [memes, setMemes] = useState([])
 
-  const recieved = loading ? "loading" : data
+    const received = loading ? "loading" : data
+    console.log(received)
 
-  const memeSaved = []
-  if (recieved !== "loading") {
-    for (let id in data.users[0].user_memes) {
-      memeSaved.push(data.users[0].user_memes[id].meme)
+    // const addMemeHandler = (memeToAdd) => {
+    //   setMemes([...memes, memeToAdd]);
+    // }
+
+    let memeSaved = []
+    if (received !== "loading") {
+      for (let id in data.users[0].user_memes) {
+        memeSaved.push(data.users[0].user_memes[id].meme)   
+      }
     }
-    console.log(memeSaved)
-  }
+
+    useEffect(() => {
+      console.log(memeSaved)
+    }, [memeSaved])
+
+    const removeChild = (deletedId: number) => {
+      console.log(deletedId)
+      memeSaved = memeSaved.filter(meme => meme.id !== deletedId)
+      console.log(memeSaved)
+    }
 
     return (
         <div className='saved'>
             <h1>Your saved memes.</h1>
-            {memeSaved.length === 0 ? console.log("kosong") : console.log("print!")}
-            {/* <div className="box">  
-              <p>You have no saved memes. Explore now!</p>
-              <Link href="/"><button className="btn-explore">Explore</button></Link>
-            </div> */}
+            {memeSaved.length === 0 ? 
+              <div className="box">  
+                <p>You have no saved memes. Explore now!</p>
+                <Link href="/"><button className="btn-explore">Explore</button></Link>
+              </div>
+              : <MasonryLayout >
+                {
+                  memeSaved.map(meme => { 
+                    return (
+                      <SaveButton meme={meme} initState={true} page="saved" removeChild={removeChild}/>
+                    )
+                  })
+                }
+              </MasonryLayout>
+              }
             
-            <MasonryLayout >
-            {
-              memeSaved.map(meme => {
-                return (
-                  <div className="meme-card" key={meme.id}>
-                    <img src={meme.image_url} className="meme-img" />
-                    <div className="meme-desc">
-                      <h2>{meme.id} {meme.title}</h2>
-                      <SaveButton currentId={meme.id} initState={memeSaved.includes(meme.id)}/>
-                    </div>
-                  </div>
-                )
-              })
-            }
-          </MasonryLayout>
           <style jsx>
             {`
               .saved {
@@ -74,31 +85,10 @@ const SavedMemes = () => {
               .btn-explore:hover {
                 filter: brightness(85%);
               }
-
-              .meme-card {
-                font-weight: bold;
-                text-align: left;
-                border-radius: 10px;
-              }
-
-              .meme-card h2 {
-                padding: 0 0.2rem;
-              }
-
-              .meme-img {
-                min-width: 100%;
-                max-height: 100%;
-                border-radius: 10px;
-              }
-
-              .meme-desc {
-                display: flex;
-                justify-content: space-between;
-              }
             `}
           </style>
       </div>
-      )
+    )
 }
 
 export default SavedMemes

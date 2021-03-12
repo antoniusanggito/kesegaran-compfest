@@ -2,11 +2,11 @@ import Head from "next/head"
 import tw from "twin.macro"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
-import YourSaved from "../components/YourSaved"
+import SavedMemes from "../components/SavedMemes"
 
 export default function Saved() {
   return (
-    <div>
+    <div className="container">
       <Head>
         <title>Saved Memes - Kesegaran COMPFEST</title>
         <link rel="icon" href="/favicon.ico" />
@@ -14,9 +14,16 @@ export default function Saved() {
 
       <main>
         <Navbar page="saved"/>
-        <YourSaved />
+        <SavedMemes />
         <Footer />
       </main>
+      <style jsx>
+        {`
+          .container {
+            height: 100%;
+          }
+        `}
+      </style>
     </div>
   )
 }

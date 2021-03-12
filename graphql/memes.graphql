@@ -1,7 +1,62 @@
-query Memes($keyword: String) {
+query Memes($keyword: String!) {
   memes(where: {_or: [{title: {_ilike: $keyword}}, {description: {_ilike: $keyword}}]}) {
+    id
     title
     image_url
     description
   }
+  users(where: {id: {_eq: "343d5987-306a-4815-8dcb-fa2fd0ff523b"}}) {
+    id
+    name
+    user_memes {
+      meme_id
+    }
+  }
 }
+
+query Saved {
+  users(where: {id: {_eq: "343d5987-306a-4815-8dcb-fa2fd0ff523b"}}) {
+    user_memes {
+      meme {
+        description
+        id
+        image_url
+        title
+      }
+    }
+  }
+}
+
+mutation Insert($id: Int!) {
+  insert_user_memes(objects: {meme_id: $id, user_id: "343d5987-306a-4815-8dcb-fa2fd0ff523b"}, on_conflict: {constraint: user_memes_pkey, update_columns: meme_id}) {
+    returning {
+      user {
+        user_memes {
+          meme_id
+        }
+      }
+    }
+  }
+}
+
+mutation Delete($id: Int!) {
+  delete_user_memes(where: {meme_id: {_eq: $id}, user: {id: {_eq: "343d5987-306a-4815-8dcb-fa2fd0ff523b"}}}) {
+    returning {
+      user {
+        user_memes {
+          meme_id
+        }
+      }
+    }
+  }
+}
+
+# mutation Delete($id: Int!) {
+#   delete_user_memes_by_pk(meme_id: $id, user_id: "343d5987-306a-4815-8dcb-fa2fd0ff523b") {
+#     user {
+#       user_memes {
+#         meme_id
+#       }
+#     }
+#   }
+# }
