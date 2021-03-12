@@ -9,8 +9,7 @@ const Explore = () => {
 
     return (
         <div className="explore">
-          <div className={state ? 'explore-box-up': 'explore-box'} 
-                onFocus={toggleOnClass} >
+          <div className={state ? 'explore-box-up': 'explore-box'} onFocus={toggleOnClass} >
             <Input state={state}/>
           </div>
             <style jsx>

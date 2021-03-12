@@ -14,8 +14,9 @@ const Input = ({ state }) => {
     }
   )
 
-  const recieved = memesLoading ? "loading" : data
-  // console.log(recieved)
+  if (memesLoading) return (
+    <>Loading...</>
+  )
 
   const handleInput = (e) => {
     setInput(e.target.value)
@@ -23,16 +24,14 @@ const Input = ({ state }) => {
 
   const memeList = []
   const memeSaved = []
-  if (recieved !== "loading") {
-    for (let id in data.users[0].user_memes) {
-      memeSaved.push(data.users[0].user_memes[id].meme_id)
-    }
-    for (let id in data.memes) {
-      memeList.push(data.memes[id])
-    }
-    // console.log(memeList)
-    // console.log(memeSaved)
+  for (let id in data.users[0].user_memes) {
+    memeSaved.push(data.users[0].user_memes[id].meme_id)
   }
+  for (let id in data.memes) {
+    memeList.push(data.memes[id])
+  }
+  // console.log(memeList)
+  // console.log(memeSaved)
 
   return (
     <>

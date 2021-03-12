@@ -9,10 +9,10 @@ const SavedMemes = (): JSX.Element => {
     const [memeCount, setMemeCount] = useState(1)
 
     if (loading) return (
-      <p>Loading...</p>
+      <div className="saved">Loading...</div>
     )
     if (error) return (
-      <p>Error! ${error.message}</p>
+      <div className="saved">Error! ${error.message}</div>
     )
 
     // const addMemeHandler = (memetoAdd) => {
