@@ -3,7 +3,7 @@ import MemeCard from "./MemeCard"
 import { useState } from 'react'
 import { useMemesQuery } from "../generated/graphql"
 
-const Input = () => {
+const Input = ({ state }) => {
   const [input, setInput] = useState('')
   const modInput = "%" + input + "%"
   const { data, loading: memesLoading } = useMemesQuery(
@@ -35,11 +35,12 @@ const Input = () => {
   }
 
   return (
-    <div>
+    <>
+      <h1>Explore.</h1>
       <form className="explore-form">
         <input value={input} placeholder='search for memes...' onInput={handleInput}/>
       </form>
-      { input !== "" &&
+      { (input !== "" || (input === "" && state)) &&
         <MasonryLayout >
           {
             memeList.map(meme => {
@@ -52,10 +53,15 @@ const Input = () => {
       }
       <style jsx>
         {`
+          h1 {
+            font-size: 36px;
+            font-weight: bold;
+          }
+
           .meme-card {
             font-weight: bold;
             text-align: left;
-            border-radius: 10px;
+            border-radius: 15px;
           }
 
           .meme-card h2 {
@@ -68,7 +74,7 @@ const Input = () => {
 
           .explore-form input {
             border: 1px solid #cccccc;
-            width: 400px;
+            width: 25rem;
             height: 35px;
             padding: 10px;
           }
@@ -85,7 +91,7 @@ const Input = () => {
           }
         `}
       </style>
-    </div>
+    </>
   );
 }
 

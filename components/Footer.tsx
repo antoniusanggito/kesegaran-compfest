@@ -23,7 +23,6 @@ const Footer = () => {
                         position:relative;
                         bottom:0;
                         width:100%;
-                        height:60px;
                     }
 
                     .footer-item {
@@ -41,6 +40,17 @@ const Footer = () => {
                     
                     .medsos a {
                         padding: 1rem;
+                    }
+
+                    @media only screen and (max-width: 600px) {
+                        .footer-item {
+                          flex-direction: column;
+                          text-align: center;
+                        }
+
+                        .medsos a {
+                            padding: 0.4rem;
+                        }
                     }
                 `}
             </style>

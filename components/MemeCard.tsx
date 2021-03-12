@@ -34,7 +34,7 @@ const MemeCard = ({ meme, initState, page, removeChild }) => {
         <div className="meme-card" key={meme.id}>
             <img src={meme.image_url} className="meme-img" />
             <div className="meme-desc">
-                <h2>{meme.id} {meme.title}</h2>
+                <h2>{meme.title}</h2>
                 <button className="btn-save" onClick={mutate}>
                     {state ? "Saved" : "Save"}
                 </button>
@@ -48,7 +48,7 @@ const MemeCard = ({ meme, initState, page, removeChild }) => {
                     }
         
                     .meme-card h2 {
-                        padding: 0 0.2rem;
+                        padding: 0.4rem;
                     }
         
                     .meme-img {
@@ -69,8 +69,8 @@ const MemeCard = ({ meme, initState, page, removeChild }) => {
                     }
 
                     .btn-save:hover {
-                        color: orange;
-                        transform: scale(1.1)
+                        color: ${state ? "black" : "orange"};
+                        transform: ${state ? null : "scale(1.1)"}
                     }
                 `}
             </style>
