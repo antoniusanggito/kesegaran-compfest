@@ -15,7 +15,11 @@ const Input = () => {
   )
 
   const recieved = memesLoading ? "loading" : data
-  console.log(recieved)
+  // console.log(recieved)
+
+  const handleInput = (e) => {
+    setInput(e.target.value)
+  }
 
   const memeList = []
   const memeSaved = []
@@ -33,9 +37,7 @@ const Input = () => {
   return (
     <div>
       <form className="explore-form">
-        <input value={input} placeholder='search for memes...' onInput={e => {
-            setInput(e.target.value)
-        }}/>
+        <input value={input} placeholder='search for memes...' onInput={handleInput}/>
       </form>
       { input !== "" &&
         <MasonryLayout >

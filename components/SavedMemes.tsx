@@ -4,7 +4,7 @@ import SaveButton from './SaveButton'
 import { useState, useEffect } from 'react'
 import { useSavedQuery } from "../generated/graphql"
 
-const SavedMemes = () => {
+const SavedMemes = (): JSX.Element => {
     const { data, loading, error } = useSavedQuery()
     const [memeCount, setMemeCount] = useState(1)
 
@@ -28,9 +28,33 @@ const SavedMemes = () => {
       setMemeCount(memeSaved.filter(meme => meme.id !== memeSelected.id).length)
     }
 
+    const outputHTML = () => {
+      if (memeCount === 0) {
+        return (
+          <div className="box">  
+            <p>You have no saved memes. Explore now!</p>
+            <Link href="/"><button className="btn-explore">Explore</button></Link>
+          </div>
+        )
+      } else {
+        return (
+          <MasonryLayout >
+            {
+              memeSaved.map(meme => { 
+                return (
+                  <SaveButton key={meme.id} meme={meme} initState={true} page="saved" removeChild={removeChild}/>
+                )
+              })
+            }
+          </MasonryLayout>
+        )
+      }
+    }
+
     return (
         <div className='saved'>
             <h1>Your saved memes.</h1>
+            {/* {outputHTML} */}
             {memeCount === 0 ? 
               <div className="box">  
                 <p>You have no saved memes. Explore now!</p>
