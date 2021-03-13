@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import FooterStyles from "../styles/modules/Footer.module.css"
 
 const Footer = () => {
     return (
@@ -19,7 +18,7 @@ const Footer = () => {
             <style jsx>
                 {`
                     .footer {
-                        background-color: lightgrey;
+                        background-color: #DCDCDC;
                         position:relative;
                         bottom:0;
                         width:100%;
@@ -34,12 +33,21 @@ const Footer = () => {
                         font-weight: bold;
                     }
 
+                    .footer-item p {
+                        font-weight: lighter;
+                    }
+
                     .footer-item a:hover {
                         color: black;
                     }
                     
                     .medsos a {
                         padding: 1rem;
+                    }
+
+                    .medsos img {
+                        width: 10px;
+                        height: 10px;
                     }
 
                     @media only screen and (max-width: 600px) {

@@ -58,7 +58,6 @@ const SavedMemes = (): JSX.Element => {
     return (
         <div className='saved'>
             <h1>Your saved memes.</h1>
-            {/* {outputHTML} */}
             {memeCount === 0 ? 
               <div className="box">  
                 <p>You have no saved memes. Explore now!</p>
@@ -80,7 +79,8 @@ const SavedMemes = (): JSX.Element => {
               .saved {
                 text-align: center;
                 margin: 0 6rem;
-                min-height: 85vh;
+                min-height: 90vh;
+                padding: 3rem 0;
               }
 
               .saved h1 {

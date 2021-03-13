@@ -16,7 +16,8 @@ const Explore = () => {
               {`
                 .explore {
                   margin: 0 6rem;
-                  min-height: 85vh;
+                  padding: 3rem 0;
+                  min-height: 95vh;
                 }
 
                 .explore-box {

@@ -34,7 +34,10 @@ const MemeCard = ({ meme, initState, page, removeChild }) => {
         <div className="meme-card" key={meme.id}>
             <img src={meme.image_url} className="meme-img" />
             <div className="meme-desc">
-                <h2>{meme.title}</h2>
+                <div className="left">
+                    <h2>{meme.title}</h2>
+                    <p>{meme.description}</p>
+                </div>
                 <button className="btn-save" onClick={mutate}>
                     {state ? "Saved" : "Save"}
                 </button>
@@ -42,13 +45,8 @@ const MemeCard = ({ meme, initState, page, removeChild }) => {
             <style jsx>
                 {`
                     .meme-card {
-                        font-weight: bold;
                         text-align: left;
                         border-radius: 10px;
-                    }
-        
-                    .meme-card h2 {
-                        padding: 0.4rem;
                     }
         
                     .meme-img {
@@ -62,6 +60,18 @@ const MemeCard = ({ meme, initState, page, removeChild }) => {
                         justify-content: space-between;
                     }
 
+                    .meme-desc h2 {
+                        font-weight: bold;
+                    }
+
+                    .meme-desc p {
+                        font-size: 15px;
+                    }
+
+                    .left {
+                        padding: 0.4rem;
+                    }
+
                     .btn-save {
                         font-weight: bold;
                         color: ${state ? "orange" : "black"};
@@ -69,8 +79,8 @@ const MemeCard = ({ meme, initState, page, removeChild }) => {
                     }
 
                     .btn-save:hover {
-                        color: ${state ? "black" : "orange"};
-                        transform: ${state ? null : "scale(1.1)"}
+                        color: orange;
+                        transform: scale(1.1);
                     }
                 `}
             </style>

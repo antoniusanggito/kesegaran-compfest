@@ -74,7 +74,7 @@ const Input = ({ state }) => {
           .explore-form input {
             border: 1px solid #cccccc;
             width: 25rem;
-            height: 35px;
+            height: 40px;
             padding: 10px;
           }
 
